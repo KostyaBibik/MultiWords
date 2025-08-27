@@ -37,7 +37,7 @@ namespace Infrastructure.RemoteConfig
                 await FetchConfig();
             
                 var jsonData = RemoteConfigService.Instance.appConfig.GetJson(REMOTE_LEVELS_KEY);
-                
+           
                 if (string.IsNullOrEmpty(jsonData)) 
                     return _defaultRemoteLevels.levels;
             
@@ -68,7 +68,9 @@ namespace Infrastructure.RemoteConfig
         private async Task InitializeRemoteConfig()
         {
             if (UnityServices.State != ServicesInitializationState.Initialized)
+            {
                 await UnityServices.InitializeAsync();
+            }
             
             if (!AuthenticationService.Instance.IsSignedIn)
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
